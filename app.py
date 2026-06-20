@@ -246,7 +246,8 @@ _BTN_W = 250
 _preset_buttons = {}
 for _name in ['Standard conditions'] + list(PRESETS.keys()):
     _bt = 'light'
-    _preset_buttons[_name] = pn.widgets.Button(name=_name, button_type=_bt, width=_BTN_W)
+    _display_name = 'Standard conditions (1M, pH=7)' if _name == 'Standard conditions' else _name
+    _preset_buttons[_name] = pn.widgets.Button(name=_display_name, button_type=_bt, width=_BTN_W)
 
 def _set_sliders(p):
     w_pH.value    = p['pH']
@@ -266,7 +267,7 @@ for _name, _btn in _preset_buttons.items():
         _btn.on_click(lambda e, n=_name: _set_sliders(PRESETS[n]))
 
 rxn_checks = {
-    r['id']: pn.widgets.Checkbox(name='', value=False, width=20)
+    r['id']: pn.widgets.Checkbox(name='', value=(r['id'] == 'aerobic'), width=20)
     for r in REACTIONS
 }
 
@@ -290,9 +291,9 @@ def rxn_list_pane(pH, lo2, lh2, lco2, lch4, lso4, lac, lbut, lglc, lprop):
         feasible, dG = feasibility[rxn['id']]
         sym   = '✓' if feasible else '✗'
         col   = '#2E7D32' if feasible else '#C62828'
-        html  = (f'<span style="color:{col};font-weight:bold;font-size:11px">{sym}</span>'
-                 f'<span style="font-size:10px;margin-left:3px">{rxn["label"]}</span>')
-        rows.append(pn.Row(pn.pane.HTML(html, width=230, height=18),
+        html  = (f'<span style="color:{col};font-weight:bold;font-size:14px">{sym}</span>'
+                 f'<span style="font-size:13px;margin-left:3px">{rxn["label"]}</span>')
+        rows.append(pn.Row(pn.pane.HTML(html, width=230, height=22),
                            rxn_checks[rxn['id']],
                            margin=(0, 0, 0, 0)))
     return pn.Column(*rows)
@@ -326,9 +327,9 @@ def conditions_display(pH, lo2, lh2, lco2, lch4, lso4, lac, lbut, lglc, lprop):
         for k, v in rows
     )
     return pn.pane.HTML(
-        f'<div style="font-size:10px;font-family:monospace;background:#f5f5f5;'
+        f'<div style="font-size:13px;font-family:monospace;background:#f5f5f5;'
         f'padding:5px 8px;border-radius:4px;border:1px solid #ddd">'
-        f'<b style="font-size:10px">Current conditions</b>'
+        f'<b style="font-size:13px">Current conditions</b>'
         f'<table style="border-collapse:collapse;margin-top:3px">{inner}</table>'
         f'</div>',
         width=250
@@ -374,7 +375,7 @@ def make_figure(pH, log_pO2, log_pH2, log_pCO2, log_pCH4, log_cSO4,
     # ── Column titles ──
     for cd in COL_DEFS.values():
         ax.text(cd['hx'], Y_MAX - 10, cd['title'],
-                ha='center', va='top', fontsize=7, fontweight='bold', color='#444',
+                ha='center', va='top', fontsize=13, fontweight='bold', color='#444',
                 bbox=dict(boxstyle='round,pad=0.2', fc='#f0f0f0', ec='#bbb', lw=0.8))
 
     # ── Half-reaction bars + non-overlapping labels ──
@@ -396,7 +397,7 @@ def make_figure(pH, log_pO2, log_pH2, log_pCO2, log_pCH4, log_cSO4,
                         color=c, lw=0.5, alpha=0.45, linestyle='-',
                         transform=ax.transData)
             ax.text(cd['tx'], label_y, hr['label'],
-                    fontsize=6.0, color=c, fontweight='bold',
+                    fontsize=12.0, color=c, fontweight='bold',
                     va='center', ha='left')
 
     # ── Reaction arrows ──
@@ -435,15 +436,15 @@ def make_figure(pH, log_pO2, log_pH2, log_pCO2, log_pCH4, log_cSO4,
                         arrowprops=dict(arrowstyle='->', color=rxn['color'],
                                         lw=lw, mutation_scale=8, linestyle=lstyle))
 
-        ax.text(xb + 0.01, ymid, f'{dG:+.0f} kJ', fontsize=6, color=col_dG,
+        ax.text(xb + 0.01, ymid, f'{dG:+.0f} kJ', fontsize=12, color=col_dG,
                 va='center', ha='left', fontweight='bold')
 
     ax.set_xlim(0, 1)
     ax.set_ylim(Y_MIN, Y_MAX)
     ax.invert_yaxis()
     ax.set_xticks([])
-    ax.set_ylabel('Reduction Potential E (mV)', fontsize=8)
-    ax.tick_params(labelsize=7)
+    ax.set_ylabel('Reduction Potential E (mV)', fontsize=14)
+    ax.tick_params(labelsize=13)
     ax.grid(axis='y', alpha=0.2, linestyle=':')
     ax.spines[['top', 'right', 'bottom']].set_visible(False)
     return fig
@@ -467,10 +468,10 @@ def make_detail_html(active_rxns, pH, log_pO2, log_pH2, log_pCO2, log_pCH4, log_
         col   = '#2E7D32' if dG < 0 else '#C62828'
         spont = 'exergonic ✓' if dG < 0 else 'endergonic ✗'
         html += (
-            f'<div style="font-family:monospace;font-size:10px;padding:6px 10px;'
+            f'<div style="font-family:monospace;font-size:13px;padding:6px 10px;'
             f'margin-bottom:6px;border:1px solid {rxn["color"]};border-radius:4px;'
             f'background:#fafafa;line-height:1.6">'
-            f'<b style="font-size:12px;color:{rxn["color"]}">{rxn["label"]}</b><br>'
+            f'<b style="font-size:15px;color:{rxn["color"]}">{rxn["label"]}</b><br>'
             f'<b>ox:</b>  {rxn["eq_don"]}<br>'
             f'<b>red:</b> {rxn["eq_acc"]}<br>'
             f'<b>net:</b> {rxn["eq_net"]}<br>'
@@ -506,41 +507,39 @@ def detail_pane_fn(pH, log_pO2, log_pH2, log_pCO2, log_pCH4, log_cSO4,
 
 # ── Layout ────────────────────────────────────────────────────────────────────
 LEGEND_HTML = """
-<div style="font-size:10px;background:#f9f9f9;border:1px solid #ddd;
-            border-radius:4px;padding:5px 8px;margin-bottom:4px;line-height:1.9">
-  <b style="font-size:10px;color:#333">Redox couples</b><br>
-  <span style="color:#333;font-weight:bold">&#8212;&#8212;&#8212;</span>
-  &nbsp;E — actual potential under current conditions (Nernst)<br>
+<div style="font-size:13px;background:#f9f9f9;border:1px solid #ddd;
+            border-radius:4px;padding:5px 8px;margin-bottom:4px;line-height:2.1">
+  <b style="font-size:13px;color:#333">Legend</b><br>
   <span style="letter-spacing:2px;color:#888">&#8212; &#8212;</span>
-  &nbsp;E°′ — standard potential (pH 7, all species at 1 M / 1 bar)<br>
-  <span style="font-size:9px;color:#555;font-style:italic">
-    Solid and dashed lines coincide at standard conditions.</span>
-  <hr style="margin:4px 0;border:none;border-top:1px solid #ddd">
-  <b style="font-size:10px;color:#333">Reaction arrows</b><br>
-  <span style="color:#2E7D32;font-weight:bold">✓ &nbsp;solid arrow</span>
-  &nbsp;— ΔG &lt; 0<br>
-  <span style="color:#C62828;font-weight:bold">✗ &nbsp;dashed arrow</span>
-  &nbsp;— ΔG &gt; 0
+  &nbsp;Dashed line — standard potentials<br>
+  <span style="color:#333;font-weight:bold">&#8212;&#8212;&#8212;</span>
+  &nbsp;Solid line — potentials at selected conditions<br>
+  <span style="color:#2E7D32;font-weight:bold">&#10132; solid green arrow</span>
+  &nbsp;— feasible metabolism (ΔG &lt; 0)<br>
+  <span style="color:#C62828;font-weight:bold">&#10132; red dashed arrow</span>
+  &nbsp;— non feasible metabolism (ΔG &gt; 0)
 </div>
 """
 
 left_panel = pn.Column(
-    pn.pane.HTML('<b style="font-size:12px">Conditions</b>'
-                 '<span style="font-size:9px;color:#666;margin-left:4px">'
+    pn.pane.HTML('<b style="font-size:15px">Environmental conditions</b>'
+                 '<span style="font-size:12px;color:#666;margin-left:4px">'
                  '— use sliders to adjust</span>'),
     w_pH, w_lo2, w_lh2, w_lco2, w_lch4, w_lso4,
     w_lac, w_lbut, w_lglc, w_lprop,
     conditions_display,
-    pn.pane.HTML('<b style="font-size:11px;margin-top:6px">Predefined conditions:</b>'
-                 '<span style="font-size:9px;color:#666;margin-left:4px">'
-                 '— click to apply</span>'),
-    *_preset_buttons.values(),
+    pn.pane.HTML('<b style="font-size:14px;margin-top:6px">Selectable conditions</b>'
+                 '<span style="font-size:12px;color:#666;margin-left:4px">— click to apply</span>'),
+    _preset_buttons['Standard conditions'],
+    pn.pane.HTML('<span style="font-size:12px;color:#555;margin-top:4px">'
+                 'Example conditions for:</span>'),
+    *[_preset_buttons[n] for n in PRESETS.keys()],
     width=270, sizing_mode='fixed'
 )
 
 right_panel = pn.Column(
-    pn.pane.HTML('<b style="font-size:12px">Reactions</b>'
-                 '<span style="font-size:9px;color:#666;margin-left:4px">'
+    pn.pane.HTML('<b style="font-size:15px">Possible microbial metabolisms</b>'
+                 '<span style="font-size:12px;color:#666;margin-left:4px">'
                  '— check to display arrow</span>'),
     pn.pane.HTML(LEGEND_HTML),
     rxn_list_pane,
@@ -550,14 +549,14 @@ right_panel = pn.Column(
 HEADER_HTML = """
 <div style="margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start">
   <div>
-    <h2 style="margin:0 0 2px 0;font-size:20px">
-      Redox Tower Interactive — Who Gets the Electrons Under Real Conditions?
+    <h2 style="margin:0 0 2px 0;font-size:22px">
+      Interactive Redox Tower - feasibility of microbial growth-supporting metabolisms under different conditions
     </h2>
-    <div style="font-size:11px;color:#444;margin-top:3px">
+    <div style="font-size:13px;color:#444;margin-top:3px">
       Alberto Scarampi, Jonas Cremer &amp; Orkun S. Soyer
     </div>
   </div>
-  <div style="text-align:right;font-size:11px;line-height:2;padding-top:4px;white-space:nowrap">
+  <div style="text-align:right;font-size:13px;line-height:2;padding-top:4px;white-space:nowrap">
     <a href="https://warwick.ac.uk/fac/sci/lifesci/research/osslab/" target="_blank"
        style="color:#1565C0;text-decoration:none;font-weight:bold">Soyer Lab</a>
     &nbsp;·&nbsp;
@@ -569,66 +568,86 @@ HEADER_HTML = """
 
 METHODS_HTML = """
 <div style="margin-top:18px;padding:12px 16px;background:#f8f9fa;border:1px solid #dee2e6;
-            border-radius:6px;font-size:11px;font-family:Georgia,serif;line-height:1.7;
+            border-radius:6px;font-size:14px;font-family:Georgia,serif;line-height:1.7;
             max-width:1310px">
-  <b style="font-size:13px">How condition dependence is calculated</b>
-  <p style="margin:4px 0;font-size:10px;color:#555">
-    Potentials are reported in mV relative to the <b>Standard Hydrogen Electrode (SHE)</b>,
-    the universal electrochemical reference defined as E = 0 mV at pH 0, H₂ = 1 bar, 25 °C.
-    More positive values mean stronger oxidising power; more negative values mean stronger
-    reducing power. At pH 7 the H⁺/H₂ couple sits at −414 mV, which serves as a familiar
-    biological landmark.
-  </p>
+  <b style="font-size:16px">How condition dependence is calculated</b>
   <p style="margin:6px 0">
     Each redox couple is characterised by its <b>standard reduction potential E°′</b> at pH 7
     (biochemical standard state). To account for actual environmental conditions the
     <b>Nernst equation</b> is applied to each half-reaction:
   </p>
   <div style="background:#fff;border:1px solid #ccc;border-radius:4px;padding:6px 14px;
-              font-family:monospace;font-size:11px;margin:6px 0">
-    E = E°′ + (RT / n<sub>e</sub>F) · ln(Q) − (n<sub>H</sub> / n<sub>e</sub>) · (RT/F) · ln(10) · pH
+              font-family:monospace;font-size:14px;margin:6px 0">
+    E = E°′ + (RT / n<sub>e</sub>F) · ln(Q)
   </div>
   <p style="margin:6px 0">
-    where <i>n</i><sub>e</sub> = electrons transferred, <i>n</i><sub>H</sub> = protons consumed
-    in the half-reaction, <i>Q</i> = reaction quotient of the relevant concentrations or partial
-    pressures, <i>R</i> = 8.314 J mol⁻¹ K⁻¹, <i>F</i> = 96 485 C mol⁻¹, <i>T</i> = 298 K.
-    The pH term is written out explicitly because pH is the most influential variable and this
-    form makes the dependence transparent.
+    where <i>Q</i> is the reaction quotient for the half reaction, <i>n</i><sub>e</sub> = electrons
+    transferred, <i>R</i> = 8.314 J mol⁻¹ K⁻¹, <i>F</i> = 96 485 C mol⁻¹, <i>T</i> = 298 K.
   </p>
   <p style="margin:6px 0">
     For a complete reaction pairing a donor couple (D) with an acceptor couple (A) the free
     energy yield is:
   </p>
   <div style="background:#fff;border:1px solid #ccc;border-radius:4px;padding:6px 14px;
-              font-family:monospace;font-size:11px;margin:6px 0">
+              font-family:monospace;font-size:14px;margin:6px 0">
     ΔG = −n<sub>e</sub> · F · ΔE &nbsp;&nbsp; where &nbsp;&nbsp; ΔE = E<sub>A</sub> − E<sub>D</sub>
   </div>
   <p style="margin:6px 0">
+    Note that E<sub>D</sub> appears as negative in the overall reaction because the donor half
+    reaction is the reverse of the reduction half reaction, as listed on the redox tower.
+  </p>
+  <p style="margin:6px 0">
     A reaction is <b style="color:#2E7D32">exergonic (feasible)</b> when ΔG &lt; 0, i.e. when
-    E<sub>A</sub> &gt; E<sub>D</sub> — the acceptor couple sits <i>above</i> the donor couple on
-    the tower (remember the y-axis is inverted so more positive potentials are at the top).
+    the donor half reaction (written in the reduction direction, as it is done on the redox tower)
+    sits above the acceptor reaction.
   </p>
 
-  <b style="font-size:12px">Worked example — H⁺/H₂ couple</b>
+  <b style="font-size:15px">Worked example — aerobic respiration (Glucose + O₂)</b>
   <p style="margin:6px 0">
-    The half-reaction is: &nbsp; 2H⁺ + 2e⁻ → H₂ &nbsp; (<i>n</i><sub>e</sub> = 2,
-    <i>n</i><sub>H</sub> = 2, E°′(pH 7) = −414 mV).
-    The Nernst equation gives:
+    Two half-reactions are involved, listed in reduction form as on the tower. Q is the
+    ratio of reactant to product activities for the reduction half-reaction, with all species
+    written out (H₂O activity = 1). We use E°(SHE) as the unambiguous reference here, so that
+    Q contains all species explicitly including protons. E°′ is simply E°(SHE) evaluated
+    at pH=7 with unit activities for all other species.
   </p>
   <div style="background:#fff;border:1px solid #ccc;border-radius:4px;padding:6px 14px;
-              font-family:monospace;font-size:11px;margin:6px 0">
-    E(H⁺/H₂) = 0 − (RT/2F) · ln(p<sub>H₂</sub>) − (RT/F) · ln(10) · pH
+              font-family:monospace;font-size:14px;margin:6px 0;line-height:2.1">
+    <b>Acceptor</b> &nbsp; O₂ + 4H⁺ + 4e⁻ → 2H₂O &nbsp;&nbsp; (n<sub>e</sub>=4, E°(SHE)=+1229 mV)<br>
+    &nbsp;&nbsp;&nbsp; Q = p<sub>O₂</sub> · [H⁺]⁴<br>
+    &nbsp;&nbsp;&nbsp; E = 1229 + (RT/4F) · ln( p<sub>O₂</sub> · [H⁺]⁴ )<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 1229 + (RT/4F)·ln(p<sub>O₂</sub>) + (RT/4F)·4·ln([H⁺])<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 1229 + (RT/4F)·ln(p<sub>O₂</sub>) − (RT/F)·ln(10)·pH &nbsp; [mV]<br>
+    &nbsp; At pH=7, p<sub>O₂</sub>=1: E = 1229 − 7×25.7×ln(10) = 1229 − 414 = <b>+816 mV = E°′</b>
+  </div>
+  <div style="background:#fff;border:1px solid #ccc;border-radius:4px;padding:6px 14px;
+              font-family:monospace;font-size:14px;margin:6px 0;line-height:2.1">
+    <b>Donor</b> &nbsp;&nbsp; 6CO₂ + 24H⁺ + 24e⁻ → Glucose + 6H₂O &nbsp;&nbsp; (n<sub>e</sub>=24, E°(SHE)=−16 mV)<br>
+    &nbsp;&nbsp;&nbsp; Q = p<sub>CO₂</sub>⁶ · [H⁺]²⁴ / [Glc]<br>
+    &nbsp;&nbsp;&nbsp; E = −16 + (RT/24F) · ln( p<sub>CO₂</sub>⁶ · [H⁺]²⁴ / [Glc] )<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = −16 + (RT/4F)·ln(p<sub>CO₂</sub>) + (RT/24F)·24·ln([H⁺]) − (RT/24F)·ln([Glc])<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = −16 + (RT/4F)·ln(p<sub>CO₂</sub>) − (RT/F)·ln(10)·pH − (RT/24F)·ln([Glc]) &nbsp; [mV]<br>
+    &nbsp; At pH=7, p<sub>CO₂</sub>=1, [Glc]=1M: E = −16 − 414 = <b>−430 mV = E°′</b>
   </div>
   <p style="margin:6px 0">
-    At pH 7 and p<sub>H₂</sub> = 10⁻³·⁵ bar (the default, ≈ 0.3 ppm):
-    <b>E ≈ −414 mV</b>.
-    Reducing H₂ to 10⁻⁶ bar (1 ppb) shifts E to ≈ <b>−503 mV</b> — making H₂-producing
-    reactions (syntrophic oxidations) thermodynamically easier because the donor couple
-    (e.g. CO₂/butyrate at ≈ −280 mV) now lies <i>above</i> H⁺/H₂ on the tower,
-    so ΔE becomes positive and ΔG &lt; 0.
-    This is exactly why syntrophic bacteria require a methanogenic partner to keep H₂ low.
+    where RT/F ≈ 25.7 mV at 25 °C.
+    At standard conditions (pH 7, all species at 1 M or 1 bar):
   </p>
-  <p style="margin:4px 0;font-size:10px;color:#666">
+  <div style="background:#fff;border:1px solid #ccc;border-radius:4px;padding:6px 14px;
+              font-family:monospace;font-size:14px;margin:6px 0;line-height:2.0">
+    E(O₂/H₂O) = +816 mV &nbsp;|&nbsp; E(CO₂/Glc) = −430 mV<br>
+    ΔE = (+816) − (−430) = +1246 mV<br>
+    ΔG = −24 × 96.485 × 1.246 = <b>−2885 kJ/mol</b>
+  </div>
+  <p style="margin:6px 0">
+    At trace oxygen (p<sub>O₂</sub> = 10⁻⁵ bar = 10 ppm, pH 7, all else standard).
+    Atmospheric O₂ is ≈ 0.21 bar, so 10⁻⁵ bar is about 0.005% of atmospheric:
+  </p>
+  <div style="background:#fff;border:1px solid #ccc;border-radius:4px;padding:6px 14px;
+              font-family:monospace;font-size:14px;margin:6px 0;line-height:2.0">
+    Q = 10⁻⁵ · (10⁻⁷)⁴ = 10⁻³³ &nbsp;&nbsp; → &nbsp;&nbsp; E = 1229 + (25.7/4)·ln(10⁻³³) = 816 − 74 = <b>+742 mV</b><br>
+    ΔE = (+742) − (−430) = +1172 mV &nbsp;|&nbsp; ΔG ≈ <b>−2714 kJ/mol</b> &nbsp;(still strongly exergonic)
+  </div>
+  <p style="margin:4px 0;font-size:13px;color:#666">
     <i>Note on primary fermentation arrows:</i> glucose fermentation (e.g. → butyrate, → lactate)
     is represented using the overall net reaction ΔG, not a direct electron transfer between two
     couples. The CO₂/glucose couple serves as the donor reference; the ΔG values shown are
@@ -639,13 +658,33 @@ METHODS_HTML = """
 """
 
 INTRO_HTML = """
-<div style="max-width:1310px;font-size:12px;font-family:Georgia,serif;line-height:1.7;
+<div style="max-width:1310px;font-size:14px;font-family:Georgia,serif;line-height:1.7;
             margin-bottom:10px;color:#222">
-  This is the interactive version of Fig. 1 of our paper. It illustrates how redox
-  potentials and feasible processes shift with environmental conditions — pH, gas partial
-  pressures, and metabolite concentrations — via the Nernst equation.
-  Dashed lines show standard-condition potentials (pH 7, unit activity); solid lines show
-  actual potentials under the selected conditions.
+  This website features an interactive "redox tower", a static version of which is explained in
+  Fig. 1 of Scarampi et al. (Citation to follow). In brief, the redox tower lists biologically
+  relevant, theoretical redox half reactions on a reduction potential scale going from negative
+  values at the top to positive values at the bottom. Each half reaction is listed in the direction
+  of "reduction", i.e. acceptance of electrons. To explore possible microbial growth-supporting
+  reactions, one should consider pairs of two redox half reactions: On the redox tower each half
+  reaction can be reversed and coupled with another half-reaction that is below it on the tower.
+  This way, the resulting overall redox reaction would have a positive reduction potential, which
+  corresponds to a negative Gibbs free energy, fulfilling the requirement of 2nd Law of
+  Thermodynamics. On the static redox tower, it is customary to list all half-reaction reduction
+  potentials under biological standard conditions, i.e. 1M concentrations for all metabolites,
+  except for hydrogen, listed at pH=7. The interactive version allows varying metabolite
+  concentrations, such as hydrogen, thereby exploring shifts in thermodynamic feasibility of
+  different microbial growth-supporting metabolisms. In the graphic below dashed lines show
+  standard-condition potentials (pH 7); solid lines show actual potentials under the conditions
+  selected.
+</div>
+"""
+
+FOOTER_HTML = """
+<div style="margin-top:16px;padding:8px 16px;font-size:13px;color:#666;
+            font-family:Georgia,serif;max-width:1310px">
+  Source code available on GitHub:
+  <a href="https://github.com/cremerlab/redox-tower" target="_blank"
+     style="color:#1565C0;text-decoration:none;font-weight:bold">cremerlab/redox-tower</a>.
 </div>
 """
 
@@ -660,6 +699,7 @@ app = pn.Column(
         right_panel,
     ),
     pn.pane.HTML(METHODS_HTML),
+    pn.pane.HTML(FOOTER_HTML),
     sizing_mode='fixed', width=1350
 )
 
