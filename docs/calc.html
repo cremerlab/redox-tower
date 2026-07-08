@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculation Details — ElectronFlow</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #fff; color: #222; }
+
+    .nav {
+      background: #1A3A5C; padding: 0 40px; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { color: #fff; font-size: 21px; font-weight: 700; text-decoration: none; letter-spacing: -0.3px; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-link { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.15s; }
+    .nav-link:hover { color: #fff; }
+    .nav-link.active { color: #fff; font-weight: 600; }
+
+    .page { max-width: 820px; margin: 56px auto; padding: 0 32px 80px; }
+
+    h1 { font-size: 26px; font-weight: 700; color: #1A3A5C; margin-bottom: 32px; }
+    h2 { font-size: 18px; font-weight: 700; color: #1A3A5C; margin: 32px 0 12px; }
+
+    p { font-family: Georgia, serif; font-size: 15px; line-height: 1.85; color: #333; margin-bottom: 14px; }
+
+    .eq {
+      background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px;
+      padding: 12px 18px; font-family: monospace; font-size: 14px;
+      line-height: 2.0; margin: 14px 0; overflow-x: auto;
+    }
+
+    .note { font-size: 13px; color: #666; font-style: italic; margin-top: 20px; }
+
+    footer { text-align: center; padding: 40px 32px; font-size: 13px; color: #999; }
+    footer a { color: #1A3A5C; font-weight: 600; text-decoration: none; }
+    footer a:hover { color: #2E7D32; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-brand">ElectronFlow</a>
+  <div class="nav-links">
+    <a href="app.html" class="nav-link">Interactive Redox Tower</a>
+    <a href="calc.html" class="nav-link active">Calc Details</a>
+    <a href="feedback.html" class="nav-link">Feedback</a>
+    <a href="about.html" class="nav-link">About</a>
+  </div>
+</nav>
+
+<main class="page">
+  <h1>Calculation Details</h1>
+
+  <h2>How condition dependence is calculated</h2>
+
+  <p>
+    Each redox couple is characterised by its <strong>standard reduction potential E°′</strong>
+    at pH&nbsp;7 (biochemical standard state). To account for actual environmental conditions the
+    <strong>Nernst equation</strong> is applied to each half-reaction:
+  </p>
+  <div class="eq">
+    E = E°′ + (RT / n<sub>e</sub>F) · ln(Q)
+  </div>
+  <p>
+    where <em>Q</em> is the reaction quotient for the half-reaction, <em>n</em><sub>e</sub> =
+    electrons transferred, <em>R</em> = 8.314 J mol⁻¹ K⁻¹, <em>F</em> = 96&thinsp;485 C mol⁻¹,
+    <em>T</em> = 298 K.
+  </p>
+
+  <h2>Free energy of complete reactions</h2>
+  <p>
+    For a complete reaction pairing a donor couple (D) with an acceptor couple (A) the free
+    energy yield is:
+  </p>
+  <div class="eq">
+    ΔG = −n<sub>e</sub> · F · ΔE &nbsp;&nbsp; where &nbsp;&nbsp; ΔE = E<sub>A</sub> − E<sub>D</sub>
+  </div>
+  <p>
+    Note that E<sub>D</sub> appears as negative in the overall reaction because the donor
+    half-reaction is the reverse of the reduction half-reaction, as listed on the redox tower.
+    A reaction is <strong style="color:#2E7D32">exergonic (feasible)</strong> when ΔG &lt; 0,
+    i.e. when the donor half-reaction (written in the reduction direction, as it is done on the
+    redox tower) sits above the acceptor reaction.
+  </p>
+
+  <h2>Worked example — aerobic respiration (Glucose + O₂)</h2>
+  <p>
+    Two half-reactions are involved, listed in reduction form as on the tower. Q is the ratio
+    of reactant to product activities for the reduction half-reaction, with all species written
+    out (H₂O activity = 1). We use E°(SHE) as the unambiguous reference so that Q contains all
+    species explicitly including protons. E°′ is simply E°(SHE) evaluated at pH&nbsp;=&nbsp;7
+    with unit activities for all other species.
+  </p>
+
+  <div class="eq">
+    <strong>Acceptor</strong> &nbsp; O₂ + 4H⁺ + 4e⁻ → 2H₂O &nbsp;&nbsp; (n<sub>e</sub>=4, E°(SHE)=+1229 mV)<br>
+    &nbsp;&nbsp;&nbsp; Q = p<sub>O₂</sub> · [H⁺]⁴<br>
+    &nbsp;&nbsp;&nbsp; E = 1229 + (RT/4F) · ln( p<sub>O₂</sub> · [H⁺]⁴ )<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 1229 + (RT/4F)·ln(p<sub>O₂</sub>) + (RT/4F)·4·ln([H⁺])<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 1229 + (RT/4F)·ln(p<sub>O₂</sub>) − (RT/F)·ln(10)·pH &nbsp; [mV]<br>
+    &nbsp; At pH=7, p<sub>O₂</sub>=1: E = 1229 − 7×25.7×ln(10) = 1229 − 414 = <strong>+816 mV = E°′</strong>
+  </div>
+
+  <div class="eq">
+    <strong>Donor</strong> &nbsp; 6CO₂ + 24H⁺ + 24e⁻ → Glucose + 6H₂O &nbsp;&nbsp; (n<sub>e</sub>=24, E°(SHE)=−16 mV)<br>
+    &nbsp;&nbsp;&nbsp; Q = p<sub>CO₂</sub>⁶ · [H⁺]²⁴ / [Glc]<br>
+    &nbsp;&nbsp;&nbsp; E = −16 + (RT/24F) · ln( p<sub>CO₂</sub>⁶ · [H⁺]²⁴ / [Glc] )<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = −16 + (RT/4F)·ln(p<sub>CO₂</sub>) + (RT/24F)·24·ln([H⁺]) − (RT/24F)·ln([Glc])<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = −16 + (RT/4F)·ln(p<sub>CO₂</sub>) − (RT/F)·ln(10)·pH − (RT/24F)·ln([Glc]) &nbsp; [mV]<br>
+    &nbsp; At pH=7, p<sub>CO₂</sub>=1, [Glc]=1M: E = −16 − 414 = <strong>−430 mV = E°′</strong>
+  </div>
+
+  <p>where RT/F ≈ 25.7 mV at 25 °C. At standard conditions (pH 7, all species at 1 M or 1 bar):</p>
+
+  <div class="eq">
+    E(O₂/H₂O) = +816 mV &nbsp;|&nbsp; E(CO₂/Glc) = −430 mV<br>
+    ΔE = (+816) − (−430) = +1246 mV<br>
+    ΔG = −24 × 96.485 × 1.246 = <strong>−2885 kJ/mol</strong>
+  </div>
+
+  <p>
+    At trace oxygen (p<sub>O₂</sub> = 10⁻⁵ bar = 10 ppm, pH 7, all else standard).
+    Atmospheric O₂ is ≈ 0.21 bar, so 10⁻⁵ bar is about 0.005% of atmospheric:
+  </p>
+
+  <div class="eq">
+    Q = 10⁻⁵ · (10⁻⁷)⁴ = 10⁻³³ &nbsp;&nbsp;→&nbsp;&nbsp;
+    E = 1229 + (25.7/4)·ln(10⁻³³) = 816 − 74 = <strong>+742 mV</strong><br>
+    ΔE = (+742) − (−430) = +1172 mV &nbsp;|&nbsp; ΔG ≈ <strong>−2714 kJ/mol</strong> &nbsp;(still strongly exergonic)
+  </div>
+
+  <p class="note">
+    Note on primary fermentation arrows: glucose fermentation (e.g. → butyrate, → lactate)
+    is represented using the overall net reaction ΔG, not a direct electron transfer between two
+    couples. The CO₂/glucose couple serves as the donor reference; the ΔG values shown are
+    thermodynamically correct for the net reaction but the electron path runs through internal
+    carriers (NAD⁺/NADH, ferredoxin) rather than directly between the displayed couples.
+  </p>
+</main>
+
+<footer>
+  Powered by the
+  <a href="https://warwick.ac.uk/fac/sci/lifesci/research/osslab/" target="_blank">Soyer Lab</a>
+  and the
+  <a href="https://cremerlab.github.io/" target="_blank">Cremer Lab</a>.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — ElectronFlow</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #fff; color: #222; }
+
+    .nav {
+      background: #1A3A5C; padding: 0 40px; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { color: #fff; font-size: 21px; font-weight: 700; text-decoration: none; letter-spacing: -0.3px; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-link { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.15s; }
+    .nav-link:hover { color: #fff; }
+    .nav-link.active { color: #fff; font-weight: 600; }
+
+    .page { max-width: 820px; margin: 56px auto; padding: 0 32px 80px; }
+
+    h1 { font-size: 26px; font-weight: 700; color: #1A3A5C; margin-bottom: 24px; }
+    h2 { font-size: 16px; font-weight: 700; color: #1A3A5C; margin: 32px 0 10px; }
+    p { font-family: Georgia, serif; font-size: 15px; line-height: 1.85; color: #333; margin-bottom: 14px; }
+    a { color: #1A3A5C; font-weight: 600; }
+    a:hover { color: #2E7D32; }
+
+    .authors { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+    .author-card {
+      border: 1px solid #dee2e6; border-radius: 8px; padding: 18px 22px;
+      flex: 1; min-width: 220px;
+    }
+    .author-name { font-weight: 700; font-size: 16px; margin-bottom: 6px; }
+    .author-affil { font-size: 13px; color: #666; }
+
+    footer { text-align: center; padding: 40px 32px; font-size: 13px; color: #999; }
+    footer a { color: #1A3A5C; text-decoration: none; font-weight: normal; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-brand">ElectronFlow</a>
+  <div class="nav-links">
+    <a href="app.html" class="nav-link">Interactive Redox Tower</a>
+    <a href="calc.html" class="nav-link">Calc Details</a>
+    <a href="feedback.html" class="nav-link">Feedback</a>
+    <a href="about.html" class="nav-link active">About</a>
+  </div>
+</nav>
+
+<main class="page">
+  <h1>About</h1>
+
+  <p>
+    ElectronFlow is an interactive companion to the redox tower presented in Fig. 1 of
+    Scarampi, Cremer &amp; Soyer et al., <em>Community Metabolism in Dynamic Redox
+    Landscapes</em> (under revision). It lets researchers and students explore how
+    thermodynamic feasibility of microbial metabolisms shifts with environmental conditions —
+    pH, gas partial pressures, and metabolite concentrations — by applying the Nernst equation
+    to each half-reaction in real time.
+  </p>
+
+  <p>
+    The interactive app runs entirely in the browser via
+    <a href="https://pyodide.org" target="_blank">Pyodide</a> and
+    <a href="https://panel.holoviz.org" target="_blank">Panel</a> — no server required.
+  </p>
+
+  <h2>Our groups</h2>
+  <div class="authors">
+    <div class="author-card">
+      <div class="author-name"><a href="https://warwick.ac.uk/fac/sci/lifesci/research/osslab/" target="_blank">Soyer Lab →</a></div>
+      <div class="author-affil">University of Warwick</div>
+    </div>
+    <div class="author-card">
+      <div class="author-name"><a href="https://cremerlab.github.io/" target="_blank">Cremer Lab →</a></div>
+      <div class="author-affil">Stanford University</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Powered by the
+  <a href="https://warwick.ac.uk/fac/sci/lifesci/research/osslab/" target="_blank">Soyer Lab</a>
+  and the
+  <a href="https://cremerlab.github.io/" target="_blank">Cremer Lab</a>.
+</footer>
+
+</body>
+</html>

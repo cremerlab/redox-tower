@@ -242,13 +242,6 @@ w_lbut  = pn.widgets.FloatSlider(name='Butyrate (log₁₀ M)',                 
 w_lglc  = pn.widgets.FloatSlider(name='Glucose (log₁₀ M)',                  value=DEFAULTS['log_cGlc'], start=-6.0, end=0.0,  step=0.25, width=250)
 w_lprop = pn.widgets.FloatSlider(name='Propionate (log₁₀ M)',               value=DEFAULTS['log_cProp'],start=-6.0, end=0.0,  step=0.25, width=250)
 
-_BTN_W = 250
-_preset_buttons = {}
-for _name in ['Standard conditions'] + list(PRESETS.keys()):
-    _bt = 'light'
-    _display_name = 'Standard conditions (1M, pH=7)' if _name == 'Standard conditions' else _name
-    _preset_buttons[_name] = pn.widgets.Button(name=_display_name, button_type=_bt, width=_BTN_W)
-
 def _set_sliders(p):
     w_pH.value    = p['pH']
     w_lo2.value   = p['log_pO2']
@@ -261,10 +254,20 @@ def _set_sliders(p):
     w_lglc.value  = p['log_cGlc']
     w_lprop.value = p['log_cProp']
 
-_preset_buttons['Standard conditions'].on_click(lambda e: _set_sliders(DEFAULTS))
-for _name, _btn in _preset_buttons.items():
-    if _name != 'Standard conditions':
-        _btn.on_click(lambda e, n=_name: _set_sliders(PRESETS[n]))
+_PRESET_OPTIONS = ['Standard conditions (1M, pH=7)'] + list(PRESETS.keys())
+_preset_select = pn.widgets.Select(
+    name='', options=_PRESET_OPTIONS,
+    value='Standard conditions (1M, pH=7)', width=250
+)
+
+def _apply_preset(event):
+    name = event.new
+    if name == 'Standard conditions (1M, pH=7)':
+        _set_sliders(DEFAULTS)
+    else:
+        _set_sliders(PRESETS[name])
+
+_preset_select.param.watch(_apply_preset, 'value')
 
 rxn_checks = {
     r['id']: pn.widgets.Checkbox(name='', value=(r['id'] == 'aerobic'), width=20)
@@ -528,12 +531,8 @@ left_panel = pn.Column(
     w_pH, w_lo2, w_lh2, w_lco2, w_lch4, w_lso4,
     w_lac, w_lbut, w_lglc, w_lprop,
     conditions_display,
-    pn.pane.HTML('<b style="font-size:14px;margin-top:6px">Selectable conditions</b>'
-                 '<span style="font-size:12px;color:#666;margin-left:4px">— click to apply</span>'),
-    _preset_buttons['Standard conditions'],
-    pn.pane.HTML('<span style="font-size:12px;color:#555;margin-top:4px">'
-                 'Example conditions for:</span>'),
-    *[_preset_buttons[n] for n in PRESETS.keys()],
+    pn.pane.HTML('<b style="font-size:14px;margin-top:6px">Selectable conditions</b>'),
+    _preset_select,
     width=270, sizing_mode='fixed'
 )
 
@@ -546,23 +545,28 @@ right_panel = pn.Column(
     width=290, sizing_mode='fixed'
 )
 
+NAV_HTML = """
+<div style="background:#1A3A5C;padding:0 40px;height:56px;display:flex;align-items:center;
+            justify-content:space-between;font-family:system-ui,-apple-system,sans-serif;
+            margin-bottom:20px">
+  <a href="index.html" style="color:#fff;text-decoration:none;font-size:21px;
+            font-weight:700;letter-spacing:-0.3px">ElectronFlow</a>
+  <div style="display:flex;gap:32px;align-items:center">
+    <a href="app.html" style="color:#fff;text-decoration:none;font-size:14px;font-weight:600">
+      Interactive Redox Tower</a>
+    <a href="calc.html" style="color:rgba(255,255,255,0.65);text-decoration:none;
+            font-size:14px;font-weight:500">Calc Details</a>
+    <a href="feedback.html" style="color:rgba(255,255,255,0.65);text-decoration:none;
+            font-size:14px;font-weight:500">Feedback</a>
+    <a href="about.html" style="color:rgba(255,255,255,0.65);text-decoration:none;
+            font-size:14px;font-weight:500">About</a>
+  </div>
+</div>
+"""
+
 HEADER_HTML = """
-<div style="margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start">
-  <div>
-    <h2 style="margin:0 0 2px 0;font-size:22px">
-      Interactive Redox Tower - feasibility of microbial growth-supporting metabolisms under different conditions
-    </h2>
-    <div style="font-size:13px;color:#444;margin-top:3px">
-      Alberto Scarampi, Jonas Cremer &amp; Orkun S. Soyer
-    </div>
-  </div>
-  <div style="text-align:right;font-size:13px;line-height:2;padding-top:4px;white-space:nowrap">
-    <a href="https://warwick.ac.uk/fac/sci/lifesci/research/osslab/" target="_blank"
-       style="color:#1565C0;text-decoration:none;font-weight:bold">Soyer Lab</a>
-    &nbsp;·&nbsp;
-    <a href="https://cremerlab.github.io/" target="_blank"
-       style="color:#1565C0;text-decoration:none;font-weight:bold">Cremer Lab</a>
-  </div>
+<div style="margin-bottom:8px;font-size:13px;color:#555">
+  Alberto Scarampi, Jonas Cremer &amp; Orkun S. Soyer
 </div>
 """
 
@@ -689,18 +693,20 @@ FOOTER_HTML = """
 """
 
 app = pn.Column(
-    pn.pane.HTML(HEADER_HTML),
-    pn.pane.HTML(INTRO_HTML),
-    pn.Row(
-        left_panel,
-        pn.Spacer(width=10),
-        pn.Column(plot_pane, detail_pane_fn),
-        pn.Spacer(width=40),
-        right_panel,
+    pn.pane.HTML(NAV_HTML, sizing_mode='stretch_width', margin=0),
+    pn.Column(
+        pn.pane.HTML(HEADER_HTML),
+        pn.Row(
+            left_panel,
+            pn.Spacer(width=10),
+            pn.Column(plot_pane, detail_pane_fn),
+            pn.Spacer(width=40),
+            right_panel,
+        ),
+        sizing_mode='fixed', width=1350, margin=(0, 0, 0, 0)
     ),
-    pn.pane.HTML(METHODS_HTML),
-    pn.pane.HTML(FOOTER_HTML),
-    sizing_mode='fixed', width=1350
+    sizing_mode='stretch_width',
+    margin=0
 )
 
 app.servable()
