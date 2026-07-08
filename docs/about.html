@@ -34,8 +34,19 @@
     .author-name { font-weight: 700; font-size: 16px; margin-bottom: 6px; }
     .author-affil { font-size: 13px; color: #666; }
 
+    .paper-ref {
+      background: #EEF4FB; border: 1px solid #b8cfe8; border-left: 4px solid #1A3A5C;
+      border-radius: 4px; padding: 14px 20px; margin: 24px 0;
+    }
+    .paper-label {
+      font-size: 10px; font-weight: 700; color: #1A3A5C; letter-spacing: 0.8px;
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .paper-ref p { margin: 0; font-size: 15px; }
+
     footer { text-align: center; padding: 40px 32px; font-size: 13px; color: #999; }
-    footer a { color: #1A3A5C; text-decoration: none; font-weight: normal; }
+    footer a { color: #1A3A5C; text-decoration: none; font-weight: 600; }
+    footer a:hover { color: #2E7D32; }
   </style>
 </head>
 <body>
@@ -54,13 +65,21 @@
   <h1>About</h1>
 
   <p>
-    ElectronFlow is an interactive companion to the redox tower presented in Fig. 1 of
-    Scarampi, Cremer &amp; Soyer et al., <em>Community Metabolism in Dynamic Redox
-    Landscapes</em> (under revision). It lets researchers and students explore how
-    thermodynamic feasibility of microbial metabolisms shifts with environmental conditions —
-    pH, gas partial pressures, and metabolite concentrations — by applying the Nernst equation
-    to each half-reaction in real time.
+    ElectronFlow is an interactive companion to the redox tower framework described in the
+    paper below. It lets researchers and students explore how thermodynamic feasibility of
+    microbial metabolisms shifts with environmental conditions — pH, gas partial pressures,
+    and metabolite concentrations — by applying the Nernst equation to each half-reaction
+    in real time.
   </p>
+
+  <div class="paper-ref">
+    <div class="paper-label">Paper</div>
+    <p>
+      A. Scarampi, J. Cremer, and O. S. Soyer et al.
+      <em>Community Metabolism in Dynamic Redox Landscapes.</em>
+      Under revision.
+    </p>
+  </div>
 
   <p>
     The interactive app runs entirely in the browser via

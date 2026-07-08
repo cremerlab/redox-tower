@@ -564,11 +564,6 @@ NAV_HTML = """
 </div>
 """
 
-HEADER_HTML = """
-<div style="margin-bottom:8px;font-size:13px;color:#555">
-  Alberto Scarampi, Jonas Cremer &amp; Orkun S. Soyer
-</div>
-"""
 
 METHODS_HTML = """
 <div style="margin-top:18px;padding:12px 16px;background:#f8f9fa;border:1px solid #dee2e6;
@@ -695,7 +690,6 @@ FOOTER_HTML = """
 app = pn.Column(
     pn.pane.HTML(NAV_HTML, sizing_mode='stretch_width', margin=0),
     pn.Column(
-        pn.pane.HTML(HEADER_HTML),
         pn.Row(
             left_panel,
             pn.Spacer(width=10),
