@@ -59,12 +59,12 @@
     releases free energy (ΔG &lt; 0). Microorganisms couple an electron donor half-reaction
     (oxidation) to an electron acceptor half-reaction (reduction). Both the sign and magnitude
     of ΔG depend on the actual concentrations of substrates and products in the environment —
-    which is why the redox tower shifts when you move the sliders.
+    which is why the redox tower shifts when conditions change.
   </p>
 
   <h2>Free energy from paired half-reactions</h2>
   <p>
-    For a complete reaction pairing a donor couple (D) with an acceptor couple (A), the Gibbs
+    To see how delta G is changing let us start with the equation for delta G. For a complete reaction pairing a donor couple (D) with an acceptor couple (A), the Gibbs
     free energy change is:
   </p>
   <div class="eq">
@@ -73,8 +73,7 @@
   <p>
     A metabolism is <strong style="color:#2E7D32">exergonic (feasible)</strong> when ΔG &lt; 0,
     i.e. ΔE &gt; 0. On the tower this corresponds to the acceptor half-reaction sitting
-    <em>below</em> the donor. The donor contributes with a negative sign because it runs as
-    oxidation — the reverse of the reduction direction listed on the tower.
+    <em>below</em> the donor.
   </p>
 
   <h2>How does E change with conditions? — The Nernst equation</h2>
@@ -100,15 +99,16 @@
     all species are at standard activities, Q&nbsp;=&nbsp;1 and E&nbsp;=&nbsp;E°(SHE).
   </p>
   <p>
-    Textbooks sometimes list E°′ — the <em>biochemical</em> standard potential evaluated at
-    pH&nbsp;=&nbsp;7 with all other species at 1&thinsp;M. E°′ is simply E°(SHE) with the
-    pH&nbsp;=&nbsp;7 correction already folded in. We use E°(SHE) here so that Q explicitly
-    contains H⁺, keeping the Nernst correction unambiguous at any pH.
+    In microbiology the standard reference is pH&nbsp;=&nbsp;7 rather than pH&nbsp;=&nbsp;0.
+    The corresponding standard potential E°′ is E°(SHE) with the pH&nbsp;=&nbsp;7 correction
+    already applied. In the calculations here we start from E°(SHE) and keep H⁺ explicit in Q,
+    so all pH dependence is visible — E°′ is recovered by setting pH&nbsp;=&nbsp;7
+    (as shown in the example below).
   </p>
 
-  <h2>Worked example — aerobic respiration (Glucose + O₂)</h2>
+  <h2>Example — aerobic respiration (Glucose + O₂)</h2>
   <p>
-    Aerobic respiration couples glucose oxidation (donor) to oxygen reduction (acceptor).
+    To illustrate how this condition depenence is calculated in detail we consider aerobic respiration which couples glucose oxidation (donor) to oxygen reduction (acceptor).
     Both half-reactions are written in their reduction form as they appear on the tower;
     H₂O activity = 1 throughout.
   </p>
@@ -142,8 +142,9 @@
   </p>
   <div class="eq">
     Q(O₂/H₂O) = 1 / (10⁻⁵·(10⁻⁷)⁴) = 10³³<br>
-    E = 1229 − (25.7/4)·ln(10³³) = 1229 − 488 = <strong>+741 mV</strong><br>
-    ΔE = (+741) − (−430) = +1171 mV &nbsp;|&nbsp; ΔG ≈ <strong>−2712 kJ/mol</strong> &nbsp;(still strongly exergonic)
+    E<sub>acceptor</sub>(O₂/H₂O) = 1229 − (25.7/4)·ln(10³³) = 1229 − 488 = <strong>+741 mV</strong><br>
+    ΔE = E<sub>acceptor</sub> − E<sub>donor</sub> = (+741) − (−430) = +1171 mV<br>
+    ΔG ≈ <strong>−2712 kJ/mol</strong> &nbsp;(still strongly exergonic)
   </div>
 
   <p class="note">
