@@ -1,0 +1,15 @@
+id,label,color,ne,donor,acceptor,eq_don,eq_acc,eq_net
+aerobic,Aerobic respiration,#E65100,24,glc,o2,Glucose + 6H2O → 6CO2 + 24H⁺ + 24e⁻,6O2 + 24H⁺ + 24e⁻ → 12H2O,Glucose + 6O2 → 6CO2 + 6H2O
+denitrif,Denitrification,#0277BD,10,h2,no3n2,5H2 → 10H⁺ + 10e⁻,2NO3⁻ + 12H⁺ + 10e⁻ → N2 + 6H2O,5H2 + 2NO3⁻ + 2H⁺ → N2 + 6H2O
+fe_red,Iron reduction,#795548,2,h2,fe,H2 → 2H⁺ + 2e⁻,2Fe(OH)3 + 4H⁺ + 2e⁻ → 2Fe²⁺ + 6H2O,H2 + 2Fe(OH)3 + 4H⁺ → 2Fe²⁺ + 6H2O
+h2sr,H2-driven sulfate reduction,#7B1FA2,8,h2,hs,4H2 → 8H⁺ + 8e⁻,SO4²⁻ + 9H⁺ + 8e⁻ → HS⁻ + 4H2O,4H2 + SO4²⁻ → HS⁻ + H⁺ + 4H2O
+h2meth,Hydrogenotrophic methanogenesis,#00838F,8,h2,ch4,4H2 → 8H⁺ + 8e⁻,CO2 + 8H⁺ + 8e⁻ → CH4 + 2H2O,4H2 + CO2 → CH4 + 2H2O
+ac_meth,Acetoclastic methanogenesis,#F57F17,8,co2ac,ch4,CH3COO⁻ + 2H2O → 2CO2 + 7H⁺ + 8e⁻,CO2 + 8H⁺ + 8e⁻ → CH4 + 2H2O,CH3COO⁻ + H2O → CH4 + HCO3⁻
+aom,Anaerobic oxidation of methane (AOM),#37474F,8,ch4,hs,CH4 + 2H2O → CO2 + 8H⁺ + 8e⁻,SO4²⁻ + 9H⁺ + 8e⁻ → HS⁻ + 4H2O,CH4 + SO4²⁻ → HCO3⁻ + HS⁻ + H2O
+homoacet,Homoacetogenesis (H2 + CO2),#388E3C,8,h2,co2ac,4H2 → 8H⁺ + 8e⁻,2CO2 + 7H⁺ + 8e⁻ → CH3COO⁻ + 2H2O,4H2 + 2CO2 → CH3COO⁻ + H⁺ + 2H2O
+glc_etoh,Ethanol fermentation,#E91E63,4,glc,etoh,"Glucose → 6CO2 + 24H⁺ + 24e⁻  (approx., ×4/24)",2 Acetaldehyde + 4H⁺ + 4e⁻ → 2 Ethanol,Glucose → 2 Ethanol + 2 CO2  (alcoholic ferm.)
+glc_but,Butyric acid fermentation,#283593,20,glc,co2but,Glucose + 6H2O → 6CO2 + 24H⁺ + 24e⁻  (×20/24),4CO2 + 19H⁺ + 20e⁻ → But⁻ + 6H2O,Glucose + 2H2O → But⁻ + 2HCO3⁻ + 3H⁺ + 2H2
+glc_lac,Lactic acid fermentation,#AD1457,4,glc,pyrlac,"Glucose → 6CO2 + 24H⁺ + 24e⁻  (approx., ×4/24)",2 Pyruvate + 4H⁺ + 4e⁻ → 2 Lactate,Glucose → 2 Lactate  (glycolysis + LDH)
+prop_synt,Syntrophic propionate oxidation,#BF360C,6,prop,h2,Prop⁻ + 3H2O → Ac⁻ + HCO3⁻ + 5H⁺ + 6e⁻,6H⁺ + 6e⁻ → 3H2,Prop⁻ + 3H2O → Ac⁻ + HCO3⁻ + H⁺ + 3H2  (requires low H2)
+but_synt,Syntrophic butyrate oxidation,#4527A0,4,co2but,h2,But⁻ + 2H2O → 2Ac⁻ + H⁺ + 2H2  (overall),4H⁺ + 4e⁻ → 2H2,But⁻ + 2H2O → 2Ac⁻ + H⁺ + 2H2  (requires low H2)
+etoh_synt,Syntrophic ethanol oxidation,#558B2F,4,etohac,h2,C2H5OH + H2O → CH3COO⁻ + 5H⁺ + 4e⁻,4H⁺ + 4e⁻ → 2H2,C2H5OH + H2O → CH3COO⁻ + H⁺ + 2H2  (requires low H2)

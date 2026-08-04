@@ -1,0 +1,22 @@
+key,label,disp,kind,start,end,step,default,slider
+pH,pH,pH,pH,4.0,10.0,0.1,7.0,true
+log_pO2,O₂ partial pressure (log₁₀ bar),O₂,gas,-10.0,0.0,0.5,0.0,true
+log_pH2,H₂ partial pressure (log₁₀ bar),H₂,gas,-7.0,0.0,0.25,0.0,true
+log_pCO2,CO₂ partial pressure (log₁₀ bar),CO₂,gas,-3.0,0.0,0.25,0.0,true
+log_pCH4,CH₄ partial pressure (log₁₀ bar),CH₄,gas,-4.0,0.0,0.25,0.0,true
+log_cSO4,SO₄²⁻ concentration (log₁₀ M),SO₄²⁻,conc,-4.0,0.0,0.25,0.0,true
+log_cAc,Acetate (log₁₀ M),Acetate,conc,-6.0,0.0,0.25,0.0,true
+log_cBut,Butyrate (log₁₀ M),Butyrate,conc,-6.0,0.0,0.25,0.0,true
+log_cGlc,Glucose (log₁₀ M),Glucose,conc,-6.0,0.0,0.25,0.0,true
+log_cProp,Propionate (log₁₀ M),Propionate,conc,-6.0,0.0,0.25,0.0,true
+log_pN2,N₂ partial pressure (log₁₀ bar),N₂,gas,-3.0,0.0,0.25,0.0,false
+log_cNO3,NO₃⁻ concentration (log₁₀ M),NO₃⁻,conc,-6.0,0.0,0.25,0.0,false
+log_cNO2,NO₂⁻ concentration (log₁₀ M),NO₂⁻,conc,-6.0,0.0,0.25,0.0,false
+log_cNH4,NH₄⁺ concentration (log₁₀ M),NH₄⁺,conc,-6.0,0.0,0.25,0.0,false
+log_cHS,HS⁻ concentration (log₁₀ M),HS⁻,conc,-6.0,0.0,0.25,0.0,false
+log_cNAD,NAD⁺ concentration (log₁₀ M),NAD⁺,conc,-3.0,0.0,0.25,0.0,false
+log_cNADH,NADH concentration (log₁₀ M),NADH,conc,-3.0,0.0,0.25,0.0,false
+log_cPyr,Pyruvate concentration (log₁₀ M),Pyruvate,conc,-6.0,0.0,0.25,0.0,false
+log_cLac,Lactate concentration (log₁₀ M),Lactate,conc,-6.0,0.0,0.25,0.0,false
+log_cAcAld,Acetaldehyde concentration (log₁₀ M),AcAld,conc,-6.0,0.0,0.25,0.0,false
+log_cEtOH,Ethanol concentration (log₁₀ M),EtOH,conc,-6.0,0.0,0.25,0.0,false

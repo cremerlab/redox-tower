@@ -1,0 +1,17 @@
+id,label,color,col,E_SHE,ne,nH,E_std,reactants,products
+o2,O2 / H2O,#E65100,0,1.230,4,4,816,"{""log_pO2"": 1}",{}
+no3n2,NO3 / N2,#558B2F,0,1.248,10,12,751,"{""log_cNO3"": 2}","{""log_pN2"": 1}"
+no3no2,NO3 / NO2,#827717,0,0.844,2,2,430,"{""log_cNO3"": 1}","{""log_cNO2"": 1}"
+glc,CO2 / Glc,#1565C0,0,-0.016,24,24,-430,"{""log_pCO2"": 6}","{""log_cGlc"": 1}"
+no3nh4,NO3 / NH4+,#00838F,1,0.878,8,10,360,"{""log_cNO3"": 1}","{""log_cNH4"": 1}"
+fe,Fe(III)/Fe(II),#8D6E63,1,0.314,1,1,-100,{},{}
+hs,SO4 / HS-,#6A1B9A,1,0.249,8,9,-217,"{""log_cSO4"": 1}","{""log_cHS"": 1}"
+ch4,CO2 / CH4,#2E7D32,1,0.169,8,8,-245,"{""log_pCO2"": 1}","{""log_pCH4"": 1}"
+pyrlac,Pyr / Lac,#AD1457,2,0.229,2,2,-185,"{""log_cPyr"": 1}","{""log_cLac"": 1}"
+etoh,AcAld / EtOH,#00695C,2,0.217,2,2,-197,"{""log_cAcAld"": 1}","{""log_cEtOH"": 1}"
+co2ac,CO2 / Ac-,#B71C1C,2,0.072,8,7,-290,"{""log_pCO2"": 2}","{""log_cAc"": 1}"
+co2but,CO2 / But-,#6200EA,2,0.113,20,19,-280,"{""log_pCO2"": 4}","{""log_cBut"": 1}"
+prop,CO2 / Prop-,#F9A825,3,0.132,6,6,-282,"{""log_pCO2"": 1, ""log_cAc"": 1}","{""log_cProp"": 1}"
+nad,NAD+ / NADH,#6D4C41,3,-0.113,2,1,-320,"{""log_cNAD"": 1}","{""log_cNADH"": 1}"
+etohac,Ac / EtOH,#00695C,3,0.13,4,5,-388,"{""log_cAc"": 1}","{""log_cEtOH"": 1}"
+h2,H+ / H2,#37474F,3,0.0,2,2,-414,{},"{""log_pH2"": 1}"
