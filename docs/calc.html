@@ -157,7 +157,7 @@
   <h2>Included reactions</h2>
   <p>
     The interactive tool currently includes <strong>16 half-reactions</strong> and
-    <strong>14 complete metabolisms</strong>, spanning aerobic respiration, anaerobic respiration,
+    <strong>15 complete metabolisms</strong>, spanning aerobic respiration, anaerobic respiration,
     fermentation, and syntrophic pathways. All reactions and their thermodynamic parameters are
     defined in CSV files available in the
     <a href="https://github.com/cremerlab/redox-tower" target="_blank"
@@ -174,6 +174,29 @@
     points for exploration. These values are chosen to illustrate typical scenarios and should
     be treated as order-of-magnitude estimates; actual concentrations and partial pressures
     in any given environment can deviate substantially from these representative values.
+  </p>
+
+  <h2>Relation to the companion paper table</h2>
+  <p>
+    The supplementary table in Scarampi, Cremer, Soyer et al. lists the same set of metabolisms
+    with their standard half-reaction potentials and ΔG°′ values. Two differences
+    exist between that table and the values used here:
+  </p>
+  <p>
+    <strong>Fermentation reactions.</strong> The paper table uses the intracellular
+    pyruvate/glucose couple (E°′ ≈ −700 mV) as the electron donor for ethanol, butyrate,
+    lactate, and homoacetate fermentation, reflecting the actual intracellular electron carrier
+    (NADH) in glycolysis. This tool instead uses the extracellular CO₂/glucose couple
+    (E°′ = −430 mV) as donor, because environmental glucose concentration is the measurable
+    quantity available on the sliders. The overall ΔG°′ for each fermentation is the same
+    in both framings.
+  </p>
+  <p>
+    <strong>Acetoclastic methanogenesis.</strong> The paper table lists a lumped
+    "Acetate/CH₄" couple (E°′ = −198 mV) as the acceptor half-reaction. This tool pairs
+    CO₂/Ac⁻ (donor, −290 mV) with CO₂/CH₄ (acceptor, −245 mV) — standard half-reactions
+    that are already present in the tower for other metabolisms. Both representations
+    give ΔG°′ ≈ −31 to −35 kJ/mol, consistent with the accepted literature value.
   </p>
 
   <p class="note" id="fn-water" style="margin-top:40px;border-top:1px solid #eee;padding-top:16px">

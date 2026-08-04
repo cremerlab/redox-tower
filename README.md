@@ -218,6 +218,13 @@ For a complete metabolism pairing donor D with acceptor A:
 
 ΔG < 0 means the metabolism is exergonic (thermodynamically feasible).
 
+### Relation to the companion paper table
+
+The supplementary table in Scarampi, Cremer, Soyer et al. lists the same metabolisms. Two differences exist between that table and the values used here:
+
+- **Fermentation donors:** the paper uses the intracellular pyruvate/glucose couple (E°′ ≈ −700 mV); the app uses CO₂/glucose (−430 mV) because that is the environmentally measurable quantity on the sliders. Overall ΔG°′ values are the same.
+- **Acetoclastic methanogenesis:** the paper lists a lumped Acetate/CH₄ couple as acceptor; the app pairs CO₂/Ac⁻ (donor) with CO₂/CH₄ (acceptor), both of which are standard half-reactions present elsewhere in the tower. ΔG°′ ≈ −31 to −35 kJ/mol in both cases.
+
 ### Sliders
 
 Sliders are generated automatically from `species.csv` at startup. Each slider updates all half-reaction potentials and ΔG values in real time.
@@ -293,3 +300,9 @@ Add one row to `data/reactions.csv`, referencing the `id` values of an existing 
 ### Add a new environmental preset
 
 Add one row to `data/presets.csv` with a `name` and a value for each slider species column. The new preset appears in the dropdown automatically — no changes to `app.py` needed.
+
+---
+
+## AI use disclosure
+
+The thermodynamic data tables (`data/*.csv`) and the Nernst equation calculations in `app.py` were assembled manually and checked against published thermodynamic data from the primary literature (see also the Supplementary table in Scarampi, Cremer, Soyer et al.). Claude Code (Anthropic) was used to assist with setting up the interactive website — including the Panel/Pyodide framework, the HTML pages, and the overall repository structure.
