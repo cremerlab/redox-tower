@@ -183,6 +183,8 @@ The column names after `name` match the `key` values of all slider species in `s
 
 **UI behaviour:** selecting a preset sets all sliders to the preset values and shows the preset name in the dropdown. Moving any slider afterwards reverts the dropdown to "— custom —", indicating that conditions no longer match any named preset.
 
+The reference conditions are chosen to illustrate typical scenarios for each environment and should be treated as order-of-magnitude estimates. Actual concentrations and partial pressures can deviate substantially from these representative values depending on the specific site, depth, season, or community composition.
+
 To add a new preset, simply add one row to this file and run the build step. No changes to `app.py` are needed.
 
 ---

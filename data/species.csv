@@ -10,10 +10,10 @@ log_cBut,Butyrate (log₁₀ M),Butyrate,conc,-6.0,0.0,0.25,0.0,true
 log_cGlc,Glucose (log₁₀ M),Glucose,conc,-6.0,0.0,0.25,0.0,true
 log_cProp,Propionate (log₁₀ M),Propionate,conc,-6.0,0.0,0.25,0.0,true
 log_pN2,N₂ partial pressure (log₁₀ bar),N₂,gas,-3.0,0.0,0.25,0.0,false
-log_cNO3,NO₃⁻ concentration (log₁₀ M),NO₃⁻,conc,-6.0,0.0,0.25,0.0,false
+log_cNO3,NO₃⁻ concentration (log₁₀ M),NO₃⁻,conc,-6.0,0.0,0.25,0.0,true
 log_cNO2,NO₂⁻ concentration (log₁₀ M),NO₂⁻,conc,-6.0,0.0,0.25,0.0,false
-log_cNH4,NH₄⁺ concentration (log₁₀ M),NH₄⁺,conc,-6.0,0.0,0.25,0.0,false
-log_cHS,HS⁻ concentration (log₁₀ M),HS⁻,conc,-6.0,0.0,0.25,0.0,false
+log_cNH4,NH₄⁺ concentration (log₁₀ M),NH₄⁺,conc,-6.0,0.0,0.25,0.0,true
+log_cHS,HS⁻ concentration (log₁₀ M),HS⁻,conc,-6.0,0.0,0.25,0.0,true
 log_cNAD,NAD⁺ concentration (log₁₀ M),NAD⁺,conc,-3.0,0.0,0.25,0.0,false
 log_cNADH,NADH concentration (log₁₀ M),NADH,conc,-3.0,0.0,0.25,0.0,false
 log_cPyr,Pyruvate concentration (log₁₀ M),Pyruvate,conc,-6.0,0.0,0.25,0.0,false

@@ -2,7 +2,7 @@ import sys, io, csv, json
 import numpy as np
 import panel as pn
 import matplotlib
-matplotlib.use('agg')
+matplotlib.use('agg')  # headless backend required for Panel/Pyodide (no display)
 import matplotlib.pyplot as plt
 
 pn.extension(sizing_mode='stretch_width')
@@ -63,6 +63,7 @@ def E_nernst(hr, **kw):
         log10_Q -= p * kw[sp]
     return 1000.0 * (hr['E_SHE'] - (_rtf() / hr['ne']) * LN10 * log10_Q)
 
+# x0/x1: left/right x of the bar in axes coordinates; tx: label x; hx: column header x
 COL_DEFS = {
     0: dict(x0=0.02, x1=0.11, tx=0.12, hx=0.065,  title='Aerobic'),
     1: dict(x0=0.25, x1=0.34, tx=0.35, hx=0.295,  title='Anaerobic\nrespiration'),
@@ -120,7 +121,7 @@ _preset_select = pn.widgets.Select(
     value=_CUSTOM_LABEL, width=250
 )
 
-_applying_preset = [False]
+_applying_preset = [False]  # list so the flag is mutable inside nested functions
 
 def _apply_preset(event):
     name = event.new
@@ -336,6 +337,8 @@ def make_detail_html(active_rxns, kw):
 
 @pn.depends(*SLIDERS.values(), *rxn_checks.values())
 def plot_pane(*vals):
+    # Panel passes all watched values as a flat tuple: first n_sp are slider values,
+    # the rest are checkbox booleans — split accordingly.
     n_sp = len(SLIDERS)
     kw = _build_kw(vals[:n_sp])
     active = [r['id'] for r, v in zip(REACTIONS, vals[n_sp:]) if v]
@@ -346,7 +349,7 @@ def plot_pane(*vals):
 
 @pn.depends(*SLIDERS.values(), *rxn_checks.values())
 def detail_pane_fn(*vals):
-    n_sp = len(SLIDERS)
+    n_sp = len(SLIDERS)  # same split as plot_pane
     kw = _build_kw(vals[:n_sp])
     active = [r['id'] for r, v in zip(REACTIONS, vals[n_sp:]) if v]
     return pn.pane.HTML(
@@ -406,48 +409,6 @@ NAV_HTML = """
     <a href="about.html" style="color:rgba(255,255,255,0.65);text-decoration:none;
             font-size:14px;font-weight:500">About</a>
   </div>
-</div>
-"""
-
-METHODS_HTML = """
-<div style="margin-top:18px;padding:12px 16px;background:#f8f9fa;border:1px solid #dee2e6;
-            border-radius:6px;font-size:14px;font-family:Georgia,serif;line-height:1.7;
-            max-width:1310px">
-  <b style="font-size:16px">How condition dependence is calculated</b>
-  <p style="margin:6px 0">
-    Each redox couple is characterised by its <b>standard reduction potential E°′</b> at pH 7
-    (biochemical standard state). To account for actual environmental conditions the
-    <b>Nernst equation</b> is applied to each half-reaction:
-  </p>
-  <div style="background:#fff;border:1px solid #ccc;border-radius:4px;padding:6px 14px;
-              font-family:monospace;font-size:14px;margin:6px 0">
-    E = E°(SHE) − (RT / n<sub>e</sub>F) · ln(Q)
-  </div>
-  <p style="margin:6px 0">
-    where <i>Q</i> = [products]/[reactants] is the reaction quotient for the reduction
-    half-reaction, <i>n</i><sub>e</sub> = electrons transferred,
-    <i>R</i> = 8.314 J mol⁻¹ K⁻¹, <i>F</i> = 96 485 C mol⁻¹, <i>T</i> = 298 K.
-  </p>
-  <p style="margin:6px 0">
-    For a complete reaction pairing a donor with an acceptor the free energy yield is:
-  </p>
-  <div style="background:#fff;border:1px solid #ccc;border-radius:4px;padding:6px 14px;
-              font-family:monospace;font-size:14px;margin:6px 0">
-    ΔG = −n<sub>e</sub> · F · ΔE &nbsp;&nbsp; where &nbsp;&nbsp; ΔE = E<sub>A</sub> − E<sub>D</sub>
-  </div>
-  <p style="margin:6px 0">
-    A reaction is <b style="color:#2E7D32">exergonic (feasible)</b> when ΔG &lt; 0, i.e. the
-    acceptor half-reaction sits below the donor on the tower (electrons flow downward).
-  </p>
-</div>
-"""
-
-FOOTER_HTML = """
-<div style="margin-top:16px;padding:8px 16px;font-size:13px;color:#666;
-            font-family:Georgia,serif;max-width:1310px">
-  Source code available on GitHub:
-  <a href="https://github.com/cremerlab/redox-tower" target="_blank"
-     style="color:#1565C0;text-decoration:none;font-weight:bold">cremerlab/redox-tower</a>.
 </div>
 """
 
