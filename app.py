@@ -378,10 +378,10 @@ LEGEND_HTML = """
 left_panel = pn.Column(
     pn.pane.HTML('<b style="font-size:15px">Environmental conditions</b>'
                  '<span style="font-size:12px;color:#666;margin-left:4px">'
-                 '— use sliders to adjust</span>'),
+                 '— use sliders to adjust or select reference condition</span>'),
     *SLIDERS.values(),
     conditions_display,
-    pn.pane.HTML('<b style="font-size:14px;margin-top:6px">Selectable conditions</b>'),
+    pn.pane.HTML('<b style="font-size:14px;margin-top:6px">Selectable reference conditions</b>'),
     _preset_select,
     width=270, sizing_mode='fixed'
 )
