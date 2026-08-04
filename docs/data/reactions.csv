@@ -7,6 +7,7 @@ h2meth,Hydrogenotrophic methanogenesis,#00838F,8,h2,ch4,4H2 → 8H⁺ + 8e⁻,CO
 ac_meth,Acetoclastic methanogenesis,#F57F17,8,co2ac,ch4,CH3COO⁻ + 2H2O → 2CO2 + 7H⁺ + 8e⁻,CO2 + 8H⁺ + 8e⁻ → CH4 + 2H2O,CH3COO⁻ + H2O → CH4 + HCO3⁻
 aom,Anaerobic oxidation of methane (AOM),#37474F,8,ch4,hs,CH4 + 2H2O → CO2 + 8H⁺ + 8e⁻,SO4²⁻ + 9H⁺ + 8e⁻ → HS⁻ + 4H2O,CH4 + SO4²⁻ → HCO3⁻ + HS⁻ + H2O
 homoacet,Homoacetogenesis (H2 + CO2),#388E3C,8,h2,co2ac,4H2 → 8H⁺ + 8e⁻,2CO2 + 7H⁺ + 8e⁻ → CH3COO⁻ + 2H2O,4H2 + 2CO2 → CH3COO⁻ + H⁺ + 2H2O
+glc_ac,Homoacetogenesis (glucose),#00897B,24,glc,co2ac,Glucose + 6H2O → 6CO2 + 24H⁺ + 24e⁻,3×(2CO2 + 7H⁺ + 8e⁻ → CH3COO⁻ + 2H2O),Glucose → 3 CH3COO⁻ + 3H⁺
 glc_etoh,Ethanol fermentation,#E91E63,4,glc,etoh,"Glucose → 6CO2 + 24H⁺ + 24e⁻  (approx., ×4/24)",2 Acetaldehyde + 4H⁺ + 4e⁻ → 2 Ethanol,Glucose → 2 Ethanol + 2 CO2  (alcoholic ferm.)
 glc_but,Butyric acid fermentation,#283593,20,glc,co2but,Glucose + 6H2O → 6CO2 + 24H⁺ + 24e⁻  (×20/24),4CO2 + 19H⁺ + 20e⁻ → But⁻ + 6H2O,Glucose + 2H2O → But⁻ + 2HCO3⁻ + 3H⁺ + 2H2
 glc_lac,Lactic acid fermentation,#AD1457,4,glc,pyrlac,"Glucose → 6CO2 + 24H⁺ + 24e⁻  (approx., ×4/24)",2 Pyruvate + 4H⁺ + 4e⁻ → 2 Lactate,Glucose → 2 Lactate  (glycolysis + LDH)
