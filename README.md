@@ -1,6 +1,6 @@
 # ElectronFlow — Interactive Redox Tower
 
-Interactive companion to Scarampi, Cremer, Soyer et al., *Community Metabolism in Dynamic Redox Landscapes* (under revision).
+Interactive companion to Scarampi, Cremer, Soyer et al., *Community Metabolism in Dynamic Redox Landscapes*, Current Opinion in Microbiology, in press.
 
 **Live site:** https://cremerlab.github.io/redox-tower
 
