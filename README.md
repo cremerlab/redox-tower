@@ -1,6 +1,6 @@
 # ElectronFlow — Interactive Redox Tower
 
-Interactive companion to Scarampi, Cremer, Soyer et al., *Community Metabolism in Dynamic Redox Landscapes*, Current Opinion in Microbiology, in press.
+Interactive companion to Scarampi, Cremer & Soyer, *Community metabolism in dynamic redox landscapes*, Current Opinion in Microbiology 93, 102804 (2026). [doi:10.1016/j.mib.2026.102804](https://doi.org/10.1016/j.mib.2026.102804)
 
 **Live site:** https://cremerlab.github.io/redox-tower
 
@@ -220,7 +220,7 @@ For a complete metabolism pairing donor D with acceptor A:
 
 ### Relation to the companion paper table
 
-The supplementary table in Scarampi, Cremer, Soyer et al. lists the same metabolisms. Two differences exist between that table and the values used here:
+The supplementary table in Scarampi, Cremer & Soyer (2026) lists the same metabolisms. Two differences exist between that table and the values used here:
 
 - **Fermentation donors:** the paper uses the intracellular pyruvate/glucose couple (E°′ ≈ −700 mV); the app uses CO₂/glucose (−430 mV) because that is the environmentally measurable quantity on the sliders. Overall ΔG°′ values are the same.
 - **Acetoclastic methanogenesis:** the paper lists a lumped Acetate/CH₄ couple as acceptor; the app pairs CO₂/Ac⁻ (donor) with CO₂/CH₄ (acceptor), both of which are standard half-reactions present elsewhere in the tower. ΔG°′ ≈ −31 to −35 kJ/mol in both cases.
@@ -305,4 +305,4 @@ Add one row to `data/presets.csv` with a `name` and a value for each slider spec
 
 ## AI use disclosure
 
-The thermodynamic data tables (`data/*.csv`) and the Nernst equation calculations in `app.py` were assembled manually and checked against published thermodynamic data from the primary literature (see also the Supplementary table in Scarampi, Cremer, Soyer et al.). Claude Code (Anthropic) was used to assist with setting up the interactive website — including the Panel/Pyodide framework, the HTML pages, and the overall repository structure.
+The thermodynamic data tables (`data/*.csv`) and the Nernst equation calculations in `app.py` were assembled manually and checked against published thermodynamic data from the primary literature (see also the Supplementary table in Scarampi, Cremer & Soyer, 2026). Claude Code (Anthropic) was used to assist with setting up the interactive website — including the Panel/Pyodide framework, the HTML pages, and the overall repository structure.
